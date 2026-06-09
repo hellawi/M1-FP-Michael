@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 public class ArgsParser {
 
     private Mode mode;
-    private int key;
+    private Integer key;
     private Path file;
 
     public Mode getMode() {
@@ -17,7 +17,7 @@ public class ArgsParser {
         this.mode = mode;
     }
 
-    public int getKey() {
+    public Integer getKey() {
         return key;
     }
 
@@ -40,8 +40,9 @@ public class ArgsParser {
                 case "-e"  -> args.setMode(Mode.ENCRYPT);
                 case "-d"  -> args.setMode(Mode.DECRYPT);
                 case "-bf" -> args.setMode(Mode.BRUTE_FORCE);
-                case "-k"  -> args.setKey(Integer.parseInt(argv[i+1]));
-                case "-f"  -> args.setFile(Paths.get(argv[i+1]));
+                case "-k"  -> args.setKey(Integer.parseInt(argv[++i]));
+                case "-f"  -> args.setFile(Paths.get(argv[++i]));
+                default    -> throw new IllegalArgumentException("Unknown flag: " + argv[i]);
             }
         }
         return args;
